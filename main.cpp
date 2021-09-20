@@ -3,7 +3,7 @@
 
 #include "Locations.h"
 #include "Miner.h"
-#include "Drunkard.h"
+#include "FlyBar.h"
 #include "MinersWife.h"
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
@@ -29,8 +29,8 @@ int main()
   //create his wife
   MinersWife* Elsa = new MinersWife(ent_Elsa);
 
-  //create the drunkard
-  Drunkard* Mitch = new Drunkard(ent_Mitch);
+  //create the FlyBar
+  FlyBar* Mitch = new FlyBar(ent_Mitch);
 
   //register them with the entity manager
   EntityMgr->RegisterEntity(Bob);

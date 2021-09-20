@@ -1,10 +1,10 @@
-#ifndef DRUNKARD_H
-#define DRUNKARD_H
+#ifndef FlyBar_H
+#define FlyBar_H
 //------------------------------------------------------------------------
 //
-//  Name:   Drunkard.h
+//  Name:   FlyBar.h
 //
-//  Desc:   A class defining a drunkard.
+//  Desc:   A class defining a FlyBar.
 //
 //  Author: Florian Fritz
 //
@@ -17,7 +17,7 @@
 #include "Locations.h"
 #include "misc/ConsoleUtils.h"
 #include "fsm/StateMachine.h"
-#include "DrunkardOwnedStates.h"
+#include "FlyBarOwnedStates.h"
 
 template <class entity_type> class State;
 struct Telegram;
@@ -30,12 +30,12 @@ const int Fatigue = 5;
 
 
 
-class Drunkard : public BaseGameEntity
+class FlyBar : public BaseGameEntity
 {
 private:
 
     //an instance of the state machine class
-    StateMachine<Drunkard>* m_pStateMachine;
+    StateMachine<FlyBar>* m_pStateMachine;
 
     location_type         m_Location;
 
@@ -47,21 +47,21 @@ private:
 
 public:
 
-    Drunkard(int id) :m_Location(shack),
+    FlyBar(int id) :m_Location(shack),
         m_iSoif(0),
         m_iFatigue(0),
         BaseGameEntity(id)
 
     {
         //set up state machine
-        m_pStateMachine = new StateMachine<Drunkard>(this);
+        m_pStateMachine = new StateMachine<FlyBar>(this);
 
         m_pStateMachine->SetCurrentState(SleepTilRested::Instance());
 
         /* NOTE, A GLOBAL STATE HAS NOT BEEN IMPLEMENTED FOR THE MINER */
     }
 
-    ~Drunkard() { delete m_pStateMachine; }
+    ~FlyBar() { delete m_pStateMachine; }
 
     //this must be implemented
     void Update();
@@ -70,7 +70,7 @@ public:
     virtual bool  HandleMessage(const Telegram& msg);
 
 
-    StateMachine<Drunkard>* GetFSM()const { return m_pStateMachine; }
+    StateMachine<FlyBar>* GetFSM()const { return m_pStateMachine; }
 
 
 

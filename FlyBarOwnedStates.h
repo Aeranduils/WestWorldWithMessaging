@@ -1,10 +1,10 @@
-#ifndef DRUNKARD_OWNED_STATES_H
-#define DRUNKARD_OWNED_STATES_H
+#ifndef FlyBar_OWNED_STATES_H
+#define FlyBar_OWNED_STATES_H
 //------------------------------------------------------------------------
 //
-//  Name:   DrunkardOwnedStates.h
+//  Name:   FlyBarOwnedStates.h
 //
-//  Desc:   All the states that can be assigned to the Drunkard class.
+//  Desc:   All the states that can be assigned to the FlyBar class.
 //          Note that a global state has not been implemented.
 //
 //  Author: Mat Buckland 2002 (fup@ai-junkie.com)
@@ -13,7 +13,7 @@
 #include "fsm/State.h"
 
 
-class Drunkard;
+class FlyBar;
 struct Telegram;
 
 
@@ -21,12 +21,12 @@ struct Telegram;
 
 //------------------------------------------------------------------------
 //
-//  In this state the Drunkard will walk to a goldmine and pick up a nugget
-//  of gold. If the Drunkard already has a nugget of gold he'll change state
+//  In this state the FlyBar will walk to a goldmine and pick up a nugget
+//  of gold. If the FlyBar already has a nugget of gold he'll change state
 //  to DrinkAtTheBar. If he gets thirsty he'll change state
 //  to InsultBob
 //------------------------------------------------------------------------
-class GoToBathroom : public State<Drunkard>
+class GoToBathroom : public State<FlyBar>
 {
 private:
 
@@ -41,23 +41,23 @@ public:
 	//this is a singleton
 	static GoToBathroom * Instance();
 
-	virtual void Enter(Drunkard* Drunkard);
+	virtual void Enter(FlyBar* FlyBar);
 
-	virtual void Execute(Drunkard* Drunkard);
+	virtual void Execute(FlyBar* FlyBar);
 
-	virtual void Exit(Drunkard* Drunkard);
+	virtual void Exit(FlyBar* FlyBar);
 
-	virtual bool OnMessage(Drunkard* agent, const Telegram& msg);
+	virtual bool OnMessage(FlyBar* agent, const Telegram& msg);
 
 };
 
 //------------------------------------------------------------------------
 //
 //  Entity will go to a bank and deposit any nuggets he is carrying. If the 
-//  Drunkard is subsequently wealthy enough he'll walk home, otherwise he'll
+//  FlyBar is subsequently wealthy enough he'll walk home, otherwise he'll
 //  keep going to get more gold
 //------------------------------------------------------------------------
-class DrinkAtTheBar : public State<Drunkard>
+class DrinkAtTheBar : public State<FlyBar>
 {
 private:
 
@@ -72,22 +72,22 @@ public:
 	//this is a singleton
 	static DrinkAtTheBar* Instance();
 
-	virtual void Enter(Drunkard* Drunkard);
+	virtual void Enter(FlyBar* FlyBar);
 
-	virtual void Execute(Drunkard* Drunkard);
+	virtual void Execute(FlyBar* FlyBar);
 
-	virtual void Exit(Drunkard* Drunkard);
+	virtual void Exit(FlyBar* FlyBar);
 
-	virtual bool OnMessage(Drunkard* agent, const Telegram& msg);
+	virtual bool OnMessage(FlyBar* agent, const Telegram& msg);
 };
 
 
 //------------------------------------------------------------------------
 //
-//  Drunkard will go home and sleep until his fatigue is decreased
+//  FlyBar will go home and sleep until his fatigue is decreased
 //  sufficiently
 //------------------------------------------------------------------------
-class SleepTilRested : public State<Drunkard>
+class SleepTilRested : public State<FlyBar>
 {
 private:
 
@@ -102,23 +102,23 @@ public:
 	//this is a singleton
 	static SleepTilRested* Instance();
 
-	virtual void Enter(Drunkard* Drunkard);
+	virtual void Enter(FlyBar* FlyBar);
 
-	virtual void Execute(Drunkard* Drunkard);
+	virtual void Execute(FlyBar* FlyBar);
 
-	virtual void Exit(Drunkard* Drunkard);
+	virtual void Exit(FlyBar* FlyBar);
 
-	virtual bool OnMessage(Drunkard* agent, const Telegram& msg);
+	virtual bool OnMessage(FlyBar* agent, const Telegram& msg);
 };
 
 
 //------------------------------------------------------------------------
 //
-//  Drunkard changes location to the saloon and keeps buying Whiskey until
+//  FlyBar changes location to the saloon and keeps buying Whiskey until
 //  his thirst is quenched. When satisfied he returns to the goldmine
 //  and resumes his quest for nuggets.
 //------------------------------------------------------------------------
-class InsultBob : public State<Drunkard>
+class InsultBob : public State<FlyBar>
 {
 private:
 
@@ -133,22 +133,22 @@ public:
 	//this is a singleton
 	static InsultBob* Instance();
 
-	virtual void Enter(Drunkard* Drunkard);
+	virtual void Enter(FlyBar* FlyBar);
 
-	virtual void Execute(Drunkard* Drunkard);
+	virtual void Execute(FlyBar* FlyBar);
 
-	virtual void Exit(Drunkard* Drunkard);
+	virtual void Exit(FlyBar* FlyBar);
 
-	virtual bool OnMessage(Drunkard* agent, const Telegram& msg);
+	virtual bool OnMessage(FlyBar* agent, const Telegram& msg);
 };
 
 /*
 //------------------------------------------------------------------------
 //
-//  this is implemented as a state blip. The Drunkard eats the stew, gives
+//  this is implemented as a state blip. The FlyBar eats the stew, gives
 //  Elsa some compliments and then returns to his previous state
 //------------------------------------------------------------------------
-class EatStew : public State<Drunkard>
+class EatStew : public State<FlyBar>
 {
 private:
 
@@ -163,13 +163,13 @@ public:
 	//this is a singleton
 	static EatStew* Instance();
 
-	virtual void Enter(Drunkard* Drunkard);
+	virtual void Enter(FlyBar* FlyBar);
 
-	virtual void Execute(Drunkard* Drunkard);
+	virtual void Execute(FlyBar* FlyBar);
 
-	virtual void Exit(Drunkard* Drunkard);
+	virtual void Exit(FlyBar* FlyBar);
 
-	virtual bool OnMessage(Drunkard* agent, const Telegram& msg);
+	virtual bool OnMessage(FlyBar* agent, const Telegram& msg);
 }
 */
 ;

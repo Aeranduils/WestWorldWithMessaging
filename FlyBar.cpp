@@ -1,12 +1,12 @@
-#include "Drunkard.h"
+#include "FlyBar.h"
 
-bool Drunkard::HandleMessage(const Telegram& msg)
+bool FlyBar::HandleMessage(const Telegram& msg)
 {
     return m_pStateMachine->HandleMessage(msg);
 }
 
 
-void Drunkard::Update()
+void FlyBar::Update()
 {
     SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
@@ -16,14 +16,14 @@ void Drunkard::Update()
 }
 
 
-bool Drunkard::Soify()const
+bool FlyBar::Soify()const
 {
     if (m_iSoif >= Soif) { return true; }
 
     return false;
 }
 
-bool Drunkard::Fatigued()const
+bool FlyBar::Fatigued()const
 {
     if (m_iFatigue > Fatigue)
     {
