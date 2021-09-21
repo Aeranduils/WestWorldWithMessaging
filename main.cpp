@@ -9,6 +9,7 @@
 #include "MessageDispatcher.h"
 #include "misc/ConsoleUtils.h"
 #include "EntityNames.h"
+#include <thread>
 
 
 std::ofstream os;
@@ -22,6 +23,7 @@ int main()
 
   //seed random number generator
   srand((unsigned) time(NULL));
+
 
   //create a miner
   Miner* Bob = new Miner(ent_Miner_Bob);
@@ -37,12 +39,18 @@ int main()
   EntityMgr->RegisterEntity(Elsa);
   EntityMgr->RegisterEntity(Mitch);
 
-  //run Bob and Elsa through a few Update calls
+  
+  //run Bob, Elsa and Mitch through a few Update calls
   for (int i=0; i<30; ++i)
   { 
-    Bob->Update();
-    Elsa->Update();
-    Mitch->Update();
+      
+      std::thread t1(&Miner::Update, Bob);
+      std::thread t2(&MinersWife::Update, Elsa);
+      std::thread t3(&Drunkard::Update, Mitch);
+
+      t1.join();
+      t2.join();
+      t3.join();
 
     //dispatch any delayed messages
     Dispatch->DispatchDelayedMessages();
@@ -53,6 +61,7 @@ int main()
   //tidy up
   delete Bob;
   delete Elsa;
+  delete Mitch;
 
   //wait for a keypress before exiting
   PressAnyKeyToContinue();
