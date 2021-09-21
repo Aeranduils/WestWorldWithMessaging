@@ -10,15 +10,15 @@ void FlyBar::Update()
 {
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
-	m_iSoif += 1;
+	m_iFatigue += 1;
 
 	m_pStateMachine->Update();
 }
 
 
-bool FlyBar::Soify()const
+bool FlyBar::Drunk()const
 {
-	if (m_iSoif >= Soif) { return true; }
+	if (m_iDrunk >= DrunkLevel) { return true; }
 
 	return false;
 }

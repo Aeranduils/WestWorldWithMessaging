@@ -21,10 +21,7 @@ struct Telegram;
 
 //------------------------------------------------------------------------
 //
-//  In this state the FlyBar will walk to a goldmine and pick up a nugget
-//  of gold. If the FlyBar already has a nugget of gold he'll change state
-//  to DrinkAtTheBar. If he gets thirsty he'll change state
-//  to InsultBob
+//  In this state the FlyBar is going to the bathroom because he need to.
 //------------------------------------------------------------------------
 class GoToBathroom : public State<FlyBar>
 {
@@ -53,9 +50,7 @@ public:
 
 //------------------------------------------------------------------------
 //
-//  Entity will go to a bank and deposit any nuggets he is carrying. If the 
-//  FlyBar is subsequently wealthy enough he'll walk home, otherwise he'll
-//  keep going to get more gold
+//  Drink at the bar until he's drunk.
 //------------------------------------------------------------------------
 class DrinkAtTheBar : public State<FlyBar>
 {
@@ -84,8 +79,7 @@ public:
 
 //------------------------------------------------------------------------
 //
-//  FlyBar will go home and sleep until his fatigue is decreased
-//  sufficiently
+//  FlyBar will sleep until he's rested enough
 //------------------------------------------------------------------------
 class SleepTilRested : public State<FlyBar>
 {
@@ -114,24 +108,22 @@ public:
 
 //------------------------------------------------------------------------
 //
-//  FlyBar changes location to the saloon and keeps buying Whiskey until
-//  his thirst is quenched. When satisfied he returns to the goldmine
-//  and resumes his quest for nuggets.
+//  FlyBar will drop in insult to everyone in the saloon.
 //------------------------------------------------------------------------
-class InsultBob : public State<FlyBar>
+class Insult : public State<FlyBar>
 {
 private:
 
-	InsultBob() {}
+	Insult() {}
 
 	//copy ctor and assignment should be private
-	InsultBob(const InsultBob&);
-	InsultBob& operator=(const InsultBob&);
+	Insult(const Insult&);
+	Insult& operator=(const Insult&);
 
 public:
 
 	//this is a singleton
-	static InsultBob* Instance();
+	static Insult* Instance();
 
 	virtual void Enter(FlyBar* FlyBar);
 
@@ -142,26 +134,26 @@ public:
 	virtual bool OnMessage(FlyBar* agent, const Telegram& msg);
 };
 
-/*
+
 //------------------------------------------------------------------------
 //
 //  this is implemented as a state blip. The FlyBar eats the stew, gives
 //  Elsa some compliments and then returns to his previous state
 //------------------------------------------------------------------------
-class EatStew : public State<FlyBar>
+class GetKnockDown : public State<FlyBar>
 {
 private:
 
-	EatStew() {}
+	GetKnockDown() {}
 
 	//copy ctor and assignment should be private
-	EatStew(const EatStew&);
-	EatStew& operator=(const EatStew&);
+	GetKnockDown(const GetKnockDown&);
+	GetKnockDown& operator=(const GetKnockDown&);
 
 public:
 
 	//this is a singleton
-	static EatStew* Instance();
+	static GetKnockDown* Instance();
 
 	virtual void Enter(FlyBar* FlyBar);
 
@@ -171,7 +163,6 @@ public:
 
 	virtual bool OnMessage(FlyBar* agent, const Telegram& msg);
 }
-*/
 ;
 
 

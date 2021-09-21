@@ -30,8 +30,8 @@ GoToBathroom* GoToBathroom::Instance()
 
 void GoToBathroom::Enter(FlyBar* pFlyBar)
 {
-	//if the FlyBar is not already located at the goldmine, he must
-	//change location to the gold mine
+	//if the FlyBar is not already located at the bathroom, he must
+	//change location to the bathroom
 	if (pFlyBar->Location() != bathroom)
 	{
 		cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Walkin' to the bathroom";
@@ -64,32 +64,32 @@ bool GoToBathroom::OnMessage(FlyBar* pFlyBar, const Telegram& msg)
 	return false;
 }
 
-//------------------------------------------------------------------------methods for InsultBob
+//------------------------------------------------------------------------methods for Insult
 
-InsultBob* InsultBob::Instance()
+Insult* Insult::Instance()
 {
-	static InsultBob instance;
+	static Insult instance;
 
 	return &instance;
 }
 
-void InsultBob::Enter(FlyBar* pFlyBar)
+void Insult::Enter(FlyBar* pFlyBar)
 {
-	//on entry the FlyBar makes sure he is located at the bank
-	if (pFlyBar->Location() != withBob)
-	{
-		cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "What a batard, this B O B, BOB !";
 
-		pFlyBar->ChangeLocation(withBob);
-	}
 }
 
 
-void InsultBob::Execute(FlyBar* pFlyBar)
+void Insult::Execute(FlyBar* pFlyBar)
 {
 
 	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": "
-		<< "WooHoo! Ok Strong boy, i think you got me ...";
+		<< "Why is everyone looking at me !? You want to fight ?";
+	//let Bob know what i think of him
+	Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+		pFlyBar->ID(),        //ID of sender
+		ent_Miner_Bob,            //ID of recipient
+		Msg_Moron,   //the message
+		NO_ADDITIONAL_INFO);
 
 	pFlyBar->GetFSM()->ChangeState(SleepTilRested::Instance());
 
@@ -98,16 +98,35 @@ void InsultBob::Execute(FlyBar* pFlyBar)
 }
 
 
-void InsultBob::Exit(FlyBar* pFlyBar)
+void Insult::Exit(FlyBar* pFlyBar)
 {
 	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Falling asleep";
 }
 
 
-bool InsultBob::OnMessage(FlyBar* pFlyBar, const Telegram& msg)
+bool Insult::OnMessage(FlyBar* pFlyBar, const Telegram& msg)
 {
-	//send msg to global message handler
-	return false;
+	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
+	switch (msg.Msg)
+	{
+	case Msg_BobHere:
+
+		cout << "\nMessage handled by " << GetNameOfEntity(pFlyBar->ID())
+			<< " at time: " << Clock->GetCurrentTime();
+
+		SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+		cout << "\n" << GetNameOfEntity(pFlyBar->ID())
+			<< ": Bob is here ? Oh i've waited for so long to take him down'!";
+
+		pFlyBar->GetFSM()->ChangeState(GetKnockDown::Instance());
+
+		return true;
+
+	}//end switch
+
+	return false; //send message to global message handler
 }
 //------------------------------------------------------------------------methods for SleepTilRested
 
@@ -131,13 +150,13 @@ void SleepTilRested::Enter(FlyBar* pFlyBar)
 
 void SleepTilRested::Execute(FlyBar* pFlyBar)
 {
-	//if FlyBar is not fatigued start to dig for nuggets again.
+	//if FlyBar is not fatigued, insult again.
 	if (!pFlyBar->Fatigued())
 	{
 		cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": "
 			<< "All mah fatigue has drained away. Bit i need to pee!";
 
-		pFlyBar->GetFSM()->ChangeState(GoToBathroom::Instance());
+		pFlyBar->GetFSM()->ChangeState(Insult::Instance());
 	}
 
 	else
@@ -183,17 +202,21 @@ void DrinkAtTheBar::Enter(FlyBar* pFlyBar)
 
 void DrinkAtTheBar::Execute(FlyBar* pFlyBar)
 {
+	//Boit 
 	pFlyBar->Drink();
 
 	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Hum, that whisky is really good ! Another !";
 
-	pFlyBar->GetFSM()->ChangeState(InsultBob::Instance());
+	//Si il est bourré alors il se met à insulter les gens dans le bar
+	if (pFlyBar->Drunk()) {
+
+		pFlyBar->GetFSM()->ChangeState(Insult::Instance());
+	}
 }
 
 
 void DrinkAtTheBar::Exit(FlyBar* pFlyBar)
 {
-	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Leaving the bar, feeling drunk. zzz";
 }
 
 
@@ -202,39 +225,40 @@ bool DrinkAtTheBar::OnMessage(FlyBar* pFlyBar, const Telegram& msg)
 	//send msg to global message handler
 	return false;
 }
-/*
-//------------------------------------------------------------------------EatStew
 
-EatStew* EatStew::Instance()
+
+//------------------------------------------------------------------------GetKnockDown
+
+GetKnockDown* GetKnockDown::Instance()
 {
-	static EatStew instance;
+	static GetKnockDown instance;
 
 	return &instance;
 }
 
 
-void EatStew::Enter(FlyBar* pFlyBar)
+void GetKnockDown::Enter(FlyBar* pFlyBar)
 {
-	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Smells Reaaal goood Elsa!";
+	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Comon bob!";
 }
 
-void EatStew::Execute(FlyBar* pFlyBar)
+void GetKnockDown::Execute(FlyBar* pFlyBar)
 {
-	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Tastes real good too!";
+	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Oww, I ... You... Strong boy ...!";
 
-	pFlyBar->GetFSM()->RevertToPreviousState();
+	pFlyBar->GetFSM()->ChangeState(SleepTilRested::Instance());
 }
 
-void EatStew::Exit(FlyBar* pFlyBar)
+void GetKnockDown::Exit(FlyBar* pFlyBar)
 {
-	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Thankya li'lle lady. Ah better get back to whatever ah wuz doin'";
+	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "I'm gonna need so sleep ....'";
 }
 
 
-bool EatStew::OnMessage(FlyBar* pFlyBar, const Telegram& msg)
+bool GetKnockDown::OnMessage(FlyBar* pFlyBar, const Telegram& msg)
 {
 	//send msg to global message handler
 	return false;
 }
-*/
+
 

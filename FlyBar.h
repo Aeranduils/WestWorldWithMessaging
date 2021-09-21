@@ -23,10 +23,12 @@ template <class entity_type> class State;
 struct Telegram;
 
 
-//above this value a miner is Soify
-const int Soif = 5;
+//above this value a FlyBar is Drunk
+const int DrunkLevel = 2;
 //above this value a miner is sleepy
 const int Fatigue = 5;
+
+
 
 
 
@@ -39,16 +41,17 @@ private:
 
 	location_type         m_Location;
 
-	//the higher the value, the Soifier the miner
-	int                   m_iSoif;
+	//the higher the value, the Drunkier is the FlyBar
+	int                   m_iDrunk;
 
-	//the higher the value, the more tired the miner
+	//the higher the value, the more tired is the FlyBar
 	int                   m_iFatigue;
 
 public:
 
-	FlyBar(int id) :m_Location(shack),
-		m_iSoif(0),
+	//Default caracteristics of the FlyBar
+	FlyBar(int id) :m_Location(saloon),
+		m_iDrunk(0),
 		m_iFatigue(0),
 		BaseGameEntity(id)
 
@@ -56,7 +59,7 @@ public:
 		//set up state machine
 		m_pStateMachine = new StateMachine<FlyBar>(this);
 
-		m_pStateMachine->SetCurrentState(SleepTilRested::Instance());
+		m_pStateMachine->SetCurrentState(DrinkAtTheBar::Instance());
 
 		/* NOTE, A GLOBAL STATE HAS NOT BEEN IMPLEMENTED FOR THE MINER */
 	}
@@ -80,11 +83,11 @@ public:
 
 
 	bool          Fatigued()const;
-	void          DecreaseFatigue() { m_iFatigue -= 1; }
+	void          DecreaseFatigue() { m_iDrunk = 0, m_iFatigue -= 1; }
 	void          IncreaseFatigue() { m_iFatigue += 1; }
 
-	bool          Soify()const;
-	void          Drink() { m_iSoif = 0; }
+	bool          Drunk()const;
+	void          Drink() { m_iDrunk += 1; }
 
 };
 
