@@ -45,10 +45,10 @@
     <ClCompile Include="..\..\Common\Time\CrudeTimer.cpp">
       <Filter>misc</Filter>
     </ClCompile>
-    <ClCompile Include="Drunkard.cpp">
+    <ClCompile Include="FlyBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DrunkardOwnedStates.cpp">
+    <ClCompile Include="FlyBarOwnedStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,10 +110,10 @@
     <ClInclude Include="..\..\Common\utils.h">
       <Filter>misc</Filter>
     </ClInclude>
-    <ClInclude Include="Drunkard.h">
+    <ClInclude Include="FlyBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DrunkardOwnedStates.h">
+    <ClInclude Include="FlyBarOwnedStates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
