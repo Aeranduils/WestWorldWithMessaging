@@ -25,10 +25,8 @@ struct Telegram;
 
 //above this value a FlyBar is Drunk
 const int DrunkLevel = 2;
-//above this value a miner is sleepy
+//above this value a FlyBar is sleepy
 const int Fatigue = 5;
-
-
 
 
 
@@ -83,7 +81,7 @@ public:
 
 
 	bool          Fatigued()const;
-	void          DecreaseFatigue() { m_iDrunk = 0, m_iFatigue -= 1; }
+	void          DecreaseFatigue() { m_iDrunk = 0; m_iFatigue -= 2;}
 	void          IncreaseFatigue() { m_iFatigue += 1; }
 
 	bool          Drunk()const;

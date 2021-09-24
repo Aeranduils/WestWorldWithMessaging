@@ -9,6 +9,7 @@
 #include "MessageDispatcher.h"
 #include "misc/ConsoleUtils.h"
 #include "EntityNames.h"
+#include "Time/CrudeTimer.h"
 #include <thread>
 
 
@@ -43,6 +44,7 @@ int main()
 	//run Bob, Elsa and Mitch through a few Update calls
 	for (int i = 0; i < 30; ++i)
 	{
+		std::cout << "\n\nTime: " << Clock->GetCurrentTime() << std::endl;
 
 		std::thread t1(&Miner::Update, Bob);
 		std::thread t2(&MinersWife::Update, Elsa);
