@@ -54,7 +54,7 @@ void GoToBathroom::Execute(FlyBar* pFlyBar)
 void GoToBathroom::Exit(FlyBar* pFlyBar)
 {
 	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": "
-		<< "Shit, I'm thirsty, I need a fucking drink !";
+		<< "I'm thirsty, I need a drink !";
 }
 
 
@@ -75,6 +75,8 @@ Insult* Insult::Instance()
 
 void Insult::Enter(FlyBar* pFlyBar)
 {
+	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": "
+		<< "Why is everyone looking at me !? You want to fight ?";
 
 }
 
@@ -82,8 +84,6 @@ void Insult::Enter(FlyBar* pFlyBar)
 void Insult::Execute(FlyBar* pFlyBar)
 {
 
-	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": "
-		<< "Why is everyone looking at me !? You want to fight ?";
 	//let Bob know what i think of him
 	Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
 		pFlyBar->ID(),        //ID of sender
@@ -174,7 +174,7 @@ void DrinkAtTheBar::Enter(FlyBar* pFlyBar)
 	{
 		pFlyBar->ChangeLocation(bar);
 
-		cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Oh boy, im in !";
+		cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Going to the bar";
 	}
 }
 
@@ -195,6 +195,7 @@ void DrinkAtTheBar::Execute(FlyBar* pFlyBar)
 
 void DrinkAtTheBar::Exit(FlyBar* pFlyBar)
 {
+	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Leaving the bar";
 }
 
 

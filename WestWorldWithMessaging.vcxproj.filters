@@ -116,5 +116,11 @@
     <ClInclude Include="FlyBarOwnedStates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MinerCombat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MinerCombatStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

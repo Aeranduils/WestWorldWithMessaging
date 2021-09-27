@@ -157,6 +157,8 @@
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="Miner.h" />
+    <ClInclude Include="MinerCombat.h" />
+    <ClInclude Include="MinerCombatStates.h" />
     <ClInclude Include="MinerOwnedStates.h" />
     <ClInclude Include="MinersWife.h" />
     <ClInclude Include="MinersWifeOwnedStates.h" />
