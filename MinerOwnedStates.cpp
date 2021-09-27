@@ -295,7 +295,7 @@ void Fight::Enter(Miner* pMiner)
 
 void Fight::Execute(Miner* pMiner)
 {
-	pMiner->GetFSM()->RevertToPreviousState();
+	pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 }
 
 void Fight::Exit(Miner* pMiner)

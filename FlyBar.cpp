@@ -18,7 +18,10 @@ void FlyBar::Update()
 
 bool FlyBar::Drunk()const
 {
-	if (m_iDrunk >= DrunkLevel) { return true; }
+	if (m_iDrunk >= DrunkLevel)
+	{
+		return true;
+	}
 
 	return false;
 }

@@ -42,17 +42,21 @@ int main()
 
 
 	//run Bob, Elsa and Mitch through a few Update calls
-	for (int i = 0; i < 30; ++i)
+	for (int i = 0; i < 60; ++i)
 	{
 		std::cout << "\n\nTime: " << Clock->GetCurrentTime() << std::endl;
 
+		//Open a thread 
 		std::thread t1(&Miner::Update, Bob);
-		std::thread t2(&MinersWife::Update, Elsa);
-		std::thread t3(&FlyBar::Update, Mitch);
-
+		//Wait that it finished before starting the next one
 		t1.join();
+
+		std::thread t2(&MinersWife::Update, Elsa);
 		t2.join();
+
+		std::thread t3(&FlyBar::Update, Mitch);
 		t3.join();
+
 
 		//dispatch any delayed messages
 		Dispatch->DispatchDelayedMessages();
