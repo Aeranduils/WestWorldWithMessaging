@@ -6,17 +6,11 @@
 //
 //  Desc:   All the states that can be assigned to the MinerCombat class
 //
-//  Author: Mat Buckland 2002 (fup@ai-junkie.com)
-//
 //------------------------------------------------------------------------
 #include "fsm/State.h"
 
 class MinerCombat;
-
-
-
-//------------------------------------------------------------------------
-//
+struct Telegram;
 
 //------------------------------------------------------------------------
 class MinerCombatGlobalState : public State<MinerCombat>
@@ -34,13 +28,13 @@ public:
 	//this is a singleton
 	static MinerCombatGlobalState* Instance();
 
-	virtual void Enter(MinerCombat* minercombat) {}
+	virtual void Enter(MinerCombat* MinerCombat) {}
 
-	virtual void Execute(MinerCombat* minercombat);
+	virtual void Execute(MinerCombat* MinerCombat);
 
-	virtual void Exit(MinerCombat* minercombat) {}
+	virtual void Exit(MinerCombat* MinerCombat) {}
 
-	virtual bool OnMessage(MinerCombat* minercombat, const Telegram& msg);
+	virtual bool OnMessage(MinerCombat* MinerCombat, const Telegram& msg);
 };
 
 
@@ -63,13 +57,13 @@ public:
 	//this is a singleton
 	static Attack* Instance();
 
-	virtual void Enter(MinerCombat* minercombat);
+	virtual void Enter(MinerCombat* MinerCombat);
 
-	virtual void Execute(MinerCombat* minercombat);
+	virtual void Execute(MinerCombat* MinerCombat);
 
-	virtual void Exit(MinerCombat* minercombat);
+	virtual void Exit(MinerCombat* MinerCombat);
 
-	virtual bool OnMessage(MinerCombat* minercombat, const Telegram& msg);
+	virtual bool OnMessage(MinerCombat* MinerCombat, const Telegram& msg);
 
 };
 
@@ -94,13 +88,13 @@ public:
 	//this is a singleton
 	static Defense* Instance();
 
-	virtual void Enter(MinerCombat* minercombat);
+	virtual void Enter(MinerCombat* MinerCombat);
 
-	virtual void Execute(MinerCombat* minercombat);
+	virtual void Execute(MinerCombat* MinerCombat);
 
-	virtual void Exit(MinerCombat* minercombat);
+	virtual void Exit(MinerCombat* MinerCombat);
 
-	virtual bool OnMessage(MinerCombat* minercombat, const Telegram& msg);
+	virtual bool OnMessage(MinerCombat* MinerCombat, const Telegram& msg);
 
 };
 
@@ -124,13 +118,13 @@ public:
 	//this is a singleton
 	static Dodge* Instance();
 
-	virtual void Enter(MinerCombat* minercombat);
+	virtual void Enter(MinerCombat* MinerCombat);
 
-	virtual void Execute(MinerCombat* minercombat);
+	virtual void Execute(MinerCombat* MinerCombat);
 
-	virtual void Exit(MinerCombat* minercombat);
+	virtual void Exit(MinerCombat* MinerCombat);
 
-	virtual bool OnMessage(MinerCombat* minercombat, const Telegram& msg);
+	virtual bool OnMessage(MinerCombat* MinerCombat, const Telegram& msg);
 };
 
 

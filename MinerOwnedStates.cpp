@@ -228,6 +228,9 @@ void QuenchThirst::Enter(Miner* pMiner)
 	if (pMiner->Location() != saloon)
 	{
 		pMiner->ChangeLocation(saloon);
+		
+		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Boy, ah sure is thusty! Walking to the saloon";
+
 		//let the Mitch know that he is here
 		Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
 			pMiner->ID(),        //ID of sender
@@ -235,7 +238,6 @@ void QuenchThirst::Enter(Miner* pMiner)
 			Msg_BobHere,   //the message
 			NO_ADDITIONAL_INFO);
 
-		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Boy, ah sure is thusty! Walking to the saloon";
 	}
 }
 
@@ -266,10 +268,10 @@ bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 
 		SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
 
+		pMiner->GetFSM()->ChangeState(Fight::Instance());
+
 		cout << "\n" << GetNameOfEntity(pMiner->ID())
 			<< ": Right, com'on let's fight ma boy'!";
-
-		pMiner->GetFSM()->ChangeState(Fight::Instance());
 
 		return true;
 
@@ -295,6 +297,8 @@ void Fight::Enter(Miner* pMiner)
 
 void Fight::Execute(Miner* pMiner)
 {
+	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": *cought* you'll need more to end me !";
+
 	pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 }
 

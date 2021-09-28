@@ -210,12 +210,18 @@ bool DrinkAtTheBar::OnMessage(FlyBar* pFlyBar, const Telegram& msg)
 		cout << "\nMessage handled by " << GetNameOfEntity(pFlyBar->ID())
 			<< " at time: " << Clock->GetCurrentTime();
 
-		SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+		//SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
 
 		cout << "\n" << GetNameOfEntity(pFlyBar->ID())
 			<< ": Bob is here ? Oh i've waited for so long to take him down'!";
 
-		pFlyBar->GetFSM()->ChangeState(GetKnockDown::Instance());
+		Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+			pFlyBar->ID(),        //ID of sender
+			ent_Miner_Bob,            //ID of recipient
+			Msg_Moron,   //the message
+			NO_ADDITIONAL_INFO);
+
+		pFlyBar->GetFSM()->ChangeState(FightFlyBar::Instance());
 
 		return true;
 
@@ -223,6 +229,42 @@ bool DrinkAtTheBar::OnMessage(FlyBar* pFlyBar, const Telegram& msg)
 	//send msg to global message handler
 	return false;
 }
+
+
+//------------------------------------------------------------------------Fight
+
+FightFlyBar* FightFlyBar::Instance()
+{
+	static FightFlyBar instance;
+
+	return &instance;
+}
+
+
+void FightFlyBar::Enter(FlyBar* pFlyBar)
+{
+	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Comon bob!";
+}
+
+void FightFlyBar::Execute(FlyBar* pFlyBar)
+{
+	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "That's all you can do ?";
+
+	pFlyBar->GetFSM()->ChangeState(GetKnockDown::Instance());
+}
+
+void FightFlyBar::Exit(FlyBar* pFlyBar)
+{
+	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Oww, I ... You... Strong boy ...!!";
+}
+
+
+bool FightFlyBar::OnMessage(FlyBar* pFlyBar, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
+}
+
 
 
 //------------------------------------------------------------------------GetKnockDown
@@ -237,12 +279,12 @@ GetKnockDown* GetKnockDown::Instance()
 
 void GetKnockDown::Enter(FlyBar* pFlyBar)
 {
-	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Comon bob!";
+	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Crap ! Today's your win !";
 }
 
 void GetKnockDown::Execute(FlyBar* pFlyBar)
 {
-	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "Oww, I ... You... Strong boy ...!";
+	cout << "\n" << GetNameOfEntity(pFlyBar->ID()) << ": " << "*K.O.*";
 
 	pFlyBar->GetFSM()->ChangeState(SleepTilRested::Instance());
 }

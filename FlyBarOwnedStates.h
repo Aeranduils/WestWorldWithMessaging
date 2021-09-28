@@ -162,10 +162,31 @@ public:
 	virtual void Exit(FlyBar* FlyBar);
 
 	virtual bool OnMessage(FlyBar* agent, const Telegram& msg);
-}
-;
+};
 
+class FightFlyBar : public State<FlyBar>
+{
+private:
 
+	FightFlyBar() {}
+
+	//copy ctor and assignment should be private
+	FightFlyBar(const FightFlyBar&);
+	FightFlyBar& operator=(const FightFlyBar&);
+
+public:
+
+	//this is a singleton
+	static FightFlyBar* Instance();
+
+	virtual void Enter(FlyBar* flybar);
+
+	virtual void Execute(FlyBar* flybar);
+
+	virtual void Exit(FlyBar* flybar);
+
+	virtual bool OnMessage(FlyBar* agent, const Telegram& msg);
+};
 
 
 #endif

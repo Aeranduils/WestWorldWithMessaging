@@ -42,7 +42,7 @@ int main()
 
 
 	//run Bob, Elsa and Mitch through a few Update calls
-	for (int i = 0; i < 30; ++i)
+	for (int i = 0; i < 100; ++i)
 	{
 		//Open a thread
 		std::thread t1(&Miner::Update, Bob);
@@ -58,7 +58,8 @@ int main()
 		//dispatch any delayed messages
 		Dispatch->DispatchDelayedMessages();
 
-		Sleep(1000);
+		//Sleep(100);
+		SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		std::cout << "\n\n-----------------------------------------------------" << std::endl;
 	}
 
