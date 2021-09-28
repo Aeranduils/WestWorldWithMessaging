@@ -210,7 +210,7 @@ bool DrinkAtTheBar::OnMessage(FlyBar* pFlyBar, const Telegram& msg)
 		cout << "\nMessage handled by " << GetNameOfEntity(pFlyBar->ID())
 			<< " at time: " << Clock->GetCurrentTime();
 
-		//SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+		SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
 		cout << "\n" << GetNameOfEntity(pFlyBar->ID())
 			<< ": Bob is here ? Oh i've waited for so long to take him down'!";
